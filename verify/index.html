@@ -210,7 +210,7 @@
 </head>
 <body>
 
-<audio id="focus-audio" src="focus.mp3" preload="auto" loop></audio>
+<audio id="focus-audio" preload="auto"></audio>
 
 <div class="start-screen" id="start-screen" role="button" tabindex="0" aria-label="Start verification">
     <div class="start-check">
@@ -343,8 +343,22 @@
     const captchaContainer = document.getElementById('captcha-container');
 
     function startFocusAudio() {
+        const musicTracks = [
+            'focus1.mp3',
+            'focus2.mp3',
+            'fcus3.mp3'
+        ];
+    
+        // Pick a random track
+        const randomTrack = musicTracks[Math.floor(Math.random() * musicTracks.length)];
+
+        focusAudio.src = randomTrack;
         focusAudio.loop = true;
-        focusAudio.play();
+        focusAudio.currentTime = 0;
+    
+        focusAudio.play().catch(error => {
+            console.warn('Audio playback was blocked:', error);
+        });
     }
 
     function startExperience() {
